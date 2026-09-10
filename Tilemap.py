@@ -1,12 +1,11 @@
 import pygame
 class Tilemap:
-    def __init__(self, tileset, map_data):
+    def __init__(self, tileset, map_data, render_size):
         self.tileset = tileset
         self.map_data = map_data
         self.tile_size = tileset.tile_size
+        self.tile_render_size = render_size
 
-        # Pre-cache tile surfaces mapped to integer IDs
-        # Tile IDs use row-major order across the tileset.
         self.tile_dictionary = {
             'Top_separate': self.tileset.get_tile(0, 0),  
             'Middle_separate': self.tileset.get_tile(0, 1),  
@@ -23,10 +22,10 @@ class Tilemap:
                 # Skip empty spaces or negative IDs (e.g., -1 for transparent/empty)
                 if tile_id in self.tile_dictionary:
                     tile_image = self.tile_dictionary[tile_id]
-                    tile_image = pygame.transform.scale(tile_image, (64, 64))
+                    tile_image = pygame.transform.scale(tile_image, (self.tile_render_size, self.tile_render_size))
                     
                     # Calculate world coordinates offset by camera position
-                    x = (col_idx * 64) - camera_offset[0]
-                    y = (row_idx * 64) - camera_offset[1]
+                    x = (col_idx * self.tile_render_size) - camera_offset[0]
+                    y = (row_idx * self.tile_render_size) - camera_offset[1]
                     
                     surface.blit(tile_image, (x, y))
