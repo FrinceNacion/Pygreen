@@ -19,13 +19,14 @@ class Tilemap:
         """Renders the entire tilemap layer onto a target Pygame surface."""
         for row_idx, row in enumerate(self.map_data):
             for col_idx, tile_id in enumerate(row):
-                # Skip empty spaces or negative IDs (e.g., -1 for transparent/empty)
-                if tile_id in self.tile_dictionary:
-                    tile_image = self.tile_dictionary[tile_id]
-                    tile_image = pygame.transform.scale(tile_image, (self.tile_render_size, self.tile_render_size))
-                    
-                    # Calculate world coordinates offset by camera position
-                    x = (col_idx * self.tile_render_size) - camera_offset[0]
-                    y = (row_idx * self.tile_render_size) - camera_offset[1]
-                    
-                    surface.blit(tile_image, (x, y))
+
+                x = (col_idx * self.tile_render_size) - camera_offset[0]
+                y = (row_idx * self.tile_render_size) - camera_offset[1]
+
+                if tile_id not in self.tile_dictionary:
+                    continue 
+
+                tile_image = self.tile_dictionary[tile_id]
+                tile_image = pygame.transform.scale(tile_image, (self.tile_render_size, self.tile_render_size))
+
+                surface.blit(tile_image, (x, y))
