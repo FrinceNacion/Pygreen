@@ -13,6 +13,12 @@ class Tilemap:
             'Top_left_corner': self.tileset.get_tile(1, 0),
             'Top_middle': self.tileset.get_tile(2, 0),
             'Top_right_corner': self.tileset.get_tile(3, 0),
+            'Left_middle': self.tileset.get_tile(1, 1),
+            'Middle_middle': self.tileset.get_tile(2, 1),
+            'Right_middle': self.tileset.get_tile(3, 1),
+            'Bottom_left_corner': self.tileset.get_tile(1, 2),
+            'Bottom_middle': self.tileset.get_tile(2, 2),
+            'Bottom_right_corner': self.tileset.get_tile(3, 2)
         }
 
     def render(self, surface, camera_offset=(0, 0)):
