@@ -27,16 +27,16 @@ class Enemy(pygame.sprite.Sprite):
         if self.handle_end_of_path():
             return 
 
-        distance = self.path[self.current_path][X] - self.rect.x
+        distance_x = self.path[self.current_path][X] - self.rect.x
+        distance_y = self.path[self.current_path][Y] - self.rect.y
 
-        if abs(distance) <= self.speed:
+        if abs(distance_x) <= self.speed and abs(distance_y) <= self.speed:
             self.rect.x = self.path[self.current_path][X]
             self.rect.y = self.path[self.current_path][Y]
 
             self.current_path += 1
             if self.current_path >= len(self.path):
                 self.current_path = len(self.path) - 1
-                #print(f"{self.name} has reached the end of the path. {self.current_path}")
 
         if self.rect.x < self.path[self.current_path][X]:
             self.rect.x += self.speed
