@@ -18,10 +18,17 @@ class Enemy(pygame.sprite.Sprite):
         self.health = health
         self.speed = speed
 
+    def handle_end_of_path(self):
+        if self.rect.x == self.path[-1][X] and self.rect.y == self.path[-1][Y]:
+            return True
+        return False
+
     def walk(self):
-        print(f"{self.name} is walking at speed {self.speed}.")
+        if self.handle_end_of_path():
+            return 
+
         distance = self.path[self.current_path][X] - self.rect.x
-        
+
         if abs(distance) <= self.speed:
             self.rect.x = self.path[self.current_path][X]
             self.rect.y = self.path[self.current_path][Y]
