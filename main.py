@@ -20,7 +20,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    screen.fill(pygame.Color("black"))
+    
     all_sprites.draw(screen)
+    enemy.walk()
+    all_sprites.update()
     
     pygame.display.flip()
     clock.tick(60)
