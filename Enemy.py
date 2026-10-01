@@ -1,6 +1,7 @@
 
 import pygame
-
+X = 0
+Y = 1
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, name, health, speed, path):
