@@ -42,3 +42,6 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.x += self.speed
         elif self.rect.x > self.path[self.current_path][X]:
             self.rect.x -= self.speed
+
+        if self.rect.y < self.path[self.current_path][Y]:
+            self.rect.y += self.speed
