@@ -20,3 +20,11 @@ class Enemy(pygame.sprite.Sprite):
 
     def walk(self):
         print(f"{self.name} is walking at speed {self.speed}.")
+
+        if self.rect.x == self.path[self.current_path][0]:
+            self.current_path += 1
+            if self.current_path >= len(self.path):
+                self.current_path = len(self.path) - 1
+
+        if self.rect.x < self.path[self.current_path][0]:
+            self.rect.x += self.speed
