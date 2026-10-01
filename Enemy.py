@@ -1,0 +1,22 @@
+
+import pygame
+
+
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self, name, health, speed, path):
+        super().__init__()
+
+        self.path = path
+        self.image = pygame.Surface((50, 50))
+        self.image.fill((230, 25, 0))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = path[0]
+        self.current_path = 1  
+
+        self.name = name
+        self.health = health
+        self.speed = speed
+
+    def walk(self):
+        print(f"{self.name} is walking at speed {self.speed}.")
