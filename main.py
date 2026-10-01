@@ -3,7 +3,7 @@ import sys
 
 import Enemy
 
-enemy_path = [(100, 100), (200, 200), (300, 300)]
+enemy_path = [(25, 100), (200, 100), (1000, 100)]
 
 enemy = Enemy.Enemy("Goblin", 100, 5, enemy_path)
 
