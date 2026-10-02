@@ -19,7 +19,9 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = speed
 
     def handle_end_of_path(self):
-        if self.rect.x == self.path[-1][X] and self.rect.y == self.path[-1][Y]:
+        if not (self.rect.x == self.path[-1][X] and self.rect.y == self.path[-1][Y]):
+            return False
+        if self.current_path == len(self.path) - 1:
             return True
         return False
 
