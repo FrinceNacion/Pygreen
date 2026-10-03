@@ -25,7 +25,8 @@ class Enemy(pygame.sprite.Sprite):
             return True
         return False
 
-    def walk(self):
+    def update(self):
+        print("update")
         if self.handle_end_of_path():
             return 
 
