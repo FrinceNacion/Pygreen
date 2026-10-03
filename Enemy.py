@@ -7,8 +7,8 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
 
         self.path = path
-        self.image = pygame.Surface((50, 50))
-        self.image.fill((230, 25, 0))
+        self.image = pygame.Surface((25, 25))
+        self.image.fill((225, 75, 0))
 
         self.rect = self.image.get_rect()
         self.rect.topleft = path[0]
@@ -17,6 +17,15 @@ class Enemy(pygame.sprite.Sprite):
         self.name = name
         self.health = health
         self.speed = speed
+
+    def take_damage(self, damage):
+        self.health -= damage
+        self.image.fill((225, 225, 225))
+        print(f"{self.name} took {damage} damage, health is now {self.health}")
+        if self.health <= 0:
+            print(f"{self.name} has been defeated!")
+            self.kill()
+        self.image.fill((225, 75, 0))
 
     def handle_end_of_path(self):
         if not (self.rect.x == self.path[-1][X] and self.rect.y == self.path[-1][Y]):
@@ -28,6 +37,7 @@ class Enemy(pygame.sprite.Sprite):
     def update(self):
         print("update")
         if self.handle_end_of_path():
+            self.image.fill((0, 0, 0))
             return 
 
         distance_x = self.path[self.current_path][X] - self.rect.x
