@@ -1,5 +1,6 @@
 import pygame
 import sys
+from constants import SCREEN_SIZE, FONT_SIZE_NORMAL, FPS
 
 import Enemy
 import Tower
@@ -16,10 +17,10 @@ all_sprites.add(tower)
 all_sprites.add(tower1)
 
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode(SCREEN_SIZE)
 clock = pygame.time.Clock()
 running = True
-font = pygame.font.Font(None, 16)
+font = pygame.font.Font(None, FONT_SIZE_NORMAL)
 
 last_spawn_time = 0
 spawn_interval = 1000/2
@@ -45,7 +46,7 @@ while running:
         pass
 
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(FPS)
 
 pygame.quit()
 sys.exit()
