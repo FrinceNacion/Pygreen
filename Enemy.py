@@ -15,16 +15,28 @@ class Enemy(pygame.sprite.Sprite):
         self.current_path = 1  
 
         self.name = name
+        self.max_health = health
         self.health = health
         self.speed = speed
 
+        self.health_bar_surface = pygame.Surface((25, 5))
+        self.health_bar_surface.fill('green3')
+        self.health_bar_rect = self.health_bar_surface.get_rect()
+
         self.white_flash_duration = 100
         self.white_flash_until = 0
+
+    def update_health_bar(self):
+        health_ratio = self.health / self.max_health
+        health_bar_width = int(25 * health_ratio)
+        self.health_bar_surface.fill('gray20')
+        pygame.draw.rect(self.health_bar_surface, 'green3', (0, 0, health_bar_width, 5))
 
     def take_damage(self, damage):
         current_time = pygame.time.get_ticks()
 
         self.health -= damage
+        self.update_health_bar()
         self.white_flash_until = current_time + self.white_flash_duration
         print(f"{self.name} took {damage} damage, health is now {self.health}")
         if self.health <= 0:
@@ -39,6 +51,7 @@ class Enemy(pygame.sprite.Sprite):
         return False
 
     def update(self, *args, **kwargs):
+        kwargs.get('screen').blit(self.health_bar_surface, (self.rect.x, self.rect.y-15))
         if self.handle_end_of_path():
             self.kill()
             return 
