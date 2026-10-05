@@ -1,5 +1,6 @@
 import pygame
 import sys
+from MainMenu import MainMenu
 from constants import SCREEN_SIZE, FONT_SIZE_NORMAL, FPS
 
 import Enemy
@@ -19,6 +20,7 @@ all_sprites.add(tower1)
 pygame.init()
 screen = pygame.display.set_mode(SCREEN_SIZE)
 clock = pygame.time.Clock()
+main_menu = MainMenu()
 running = True
 font = pygame.font.Font(None, FONT_SIZE_NORMAL)
 
@@ -29,10 +31,12 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        main_menu.handle_event(event)
 
     current_time = pygame.time.get_ticks()
     screen.fill(pygame.Color("black"))
 
+    """
     all_sprites.draw(screen)
     all_sprites.update(enemies_in_battlefield, screen=screen)
 
@@ -44,6 +48,9 @@ while running:
             last_spawn_time = current_time
     except IndexError:
         pass
+    """
+    main_menu.draw()
+    screen.blit(main_menu, (0, 0))
 
     pygame.display.flip()
     clock.tick(FPS)
