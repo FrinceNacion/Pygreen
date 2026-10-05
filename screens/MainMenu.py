@@ -1,5 +1,5 @@
 import pygame
-from constants import SCREEN_SIZE, FONT_SIZE_NORMAL, FONT_SIZE_LARGE
+from config.constants import SCREEN_SIZE, FONT_SIZE_NORMAL, FONT_SIZE_LARGE
 
 class MainMenu(pygame.surface.Surface):
     def __init__(self):
