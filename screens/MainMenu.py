@@ -17,12 +17,13 @@ class MainMenu(pygame.surface.Surface):
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self.play_button.collidepoint(event.pos):
-                self.on_play()
+                return self.on_play()
             elif self.settings_button.collidepoint(event.pos):
                 self.on_settings()
+        return 'main_menu'
 
     def on_play(self):
-        pass
+        return "stage_one"
 
     def on_settings(self):
         pass
