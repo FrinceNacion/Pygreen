@@ -20,11 +20,6 @@ while running:
             running = False
         if current_screen == main_menu:
             state = main_menu.handle_event(event)
-        """if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            if current_screen != main_menu:
-                current_screen = main_menu
-                state = 'main_menu'"""
-        
 
     current_time = pygame.time.get_ticks()
     screen.fill(pygame.Color("black"))
