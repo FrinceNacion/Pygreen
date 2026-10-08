@@ -23,8 +23,15 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if current_screen == main_menu:
+            if development_mode:
+                print("Path points: ", stage_one.path_points)
+        elif current_screen == main_menu:
             state = main_menu.handle_event(event)
+        elif current_screen == stage_one and path_builder_mode:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+                pos = pygame.mouse.get_pos()
+                stage_one.path_points.append(pos)
+                print(f"Added path point: {pos}")
 
     current_time = pygame.time.get_ticks()
     screen.fill(pygame.Color("black"))
