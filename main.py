@@ -13,6 +13,11 @@ stage_one = StageOne()
 current_screen = main_menu
 
 running = True
+development_mode = True
+path_builder_mode = False
+
+if development_mode and input("Enable path builder mode? (y/n): ").lower() == "y":
+    path_builder_mode = True
 
 while running:
     for event in pygame.event.get():
