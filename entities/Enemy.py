@@ -1,3 +1,5 @@
+import math
+
 import pygame
 X = 0
 Y = 1
@@ -12,6 +14,8 @@ class Enemy(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
         self.rect.topleft = path[0]
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
         self.current_path = 1  
 
         self.name = name
@@ -44,14 +48,14 @@ class Enemy(pygame.sprite.Sprite):
             self.kill()
 
     def handle_end_of_path(self):
-        if not (self.rect.x == self.path[-1][X] and self.rect.y == self.path[-1][Y]):
+        if not (self.x == self.path[-1][X] and self.y == self.path[-1][Y]):
             return False
         if self.current_path == len(self.path) - 1:
             return True
         return False
 
     def update(self, *args, **kwargs):
-        kwargs.get('screen').blit(self.health_bar_surface, (self.rect.x, self.rect.y-15))
+        kwargs.get('screen').blit(self.health_bar_surface, (int(self.x), int(self.y - 15)))
         if self.handle_end_of_path():
             self.kill()
             return 
@@ -61,23 +65,18 @@ class Enemy(pygame.sprite.Sprite):
         else:
             self.image.fill((225, 75, 0))
 
-        distance_x = self.path[self.current_path][X] - self.rect.x
-        distance_y = self.path[self.current_path][Y] - self.rect.y
+        distance_x = self.path[self.current_path][X] - self.x
+        distance_y = self.path[self.current_path][Y] - self.y
+        distance = math.hypot(distance_x, distance_y)
 
-        if abs(distance_x) <= self.speed and abs(distance_y) <= self.speed:
-            self.rect.x = self.path[self.current_path][X]
-            self.rect.y = self.path[self.current_path][Y]
-
+        if distance <= self.speed:
+            self.x = float(self.path[self.current_path][X])
+            self.y = float(self.path[self.current_path][Y])
             self.current_path += 1
             if self.current_path >= len(self.path):
                 self.current_path = len(self.path) - 1
+        elif distance:
+            self.x += distance_x / distance * self.speed
+            self.y += distance_y / distance * self.speed
 
-        if self.rect.x < self.path[self.current_path][X]:
-            self.rect.x += self.speed
-        elif self.rect.x > self.path[self.current_path][X]:
-            self.rect.x -= self.speed
-
-        if self.rect.y < self.path[self.current_path][Y]:
-            self.rect.y += self.speed
-        elif self.rect.y > self.path[self.current_path][Y]:
-            self.rect.y -= self.speed
+        self.rect.topleft = (int(self.x), int(self.y))
