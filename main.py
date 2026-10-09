@@ -14,10 +14,6 @@ current_screen = main_menu
 
 running = True
 development_mode = True
-path_builder_mode = False
-
-if development_mode and input("Enable path builder mode? (y/n): ").lower() == "y":
-    path_builder_mode = True
 
 while running:
     for event in pygame.event.get():
@@ -27,7 +23,7 @@ while running:
                 print("Path points: ", stage_one.path_points)
         elif current_screen == main_menu:
             state = main_menu.handle_event(event)
-        elif current_screen == stage_one and path_builder_mode:
+        elif current_screen == stage_one and development_mode:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 pos = pygame.mouse.get_pos()
                 stage_one.path_points.append(pos)
