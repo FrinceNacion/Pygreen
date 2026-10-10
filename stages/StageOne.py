@@ -19,7 +19,7 @@ class StageOne(pygame.Surface):
         self.blit(self.background, (0, 0))
 
         for point in self.path_points:
-            pygame.draw.circle(self, (255, 0, 0), point, 5)
+            pygame.draw.circle(self, 'salmon', point, 5)
     
 
 
