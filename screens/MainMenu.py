@@ -23,7 +23,7 @@ class MainMenu(pygame.surface.Surface):
         return 'main_menu'
 
     def on_play(self):
-        return "stage_one"
+        return "stage_selection"
 
     def on_settings(self):
         pass
