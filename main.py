@@ -18,60 +18,68 @@ class GameStateManager:
         self.current_state = state
 
 
-pygame.init()
-screen = pygame.display.set_mode(SCREEN_SIZE)
-pygame.display.set_caption("Anttack")
-clock = pygame.time.Clock()
+class Game:
+    def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode(SCREEN_SIZE)
+        pygame.display.set_caption("Anttack")
+        self.clock = pygame.time.Clock()
 
-game_state_manager = GameStateManager('main_menu')
-main_menu = MainMenu()
-stage_selection = StageSelection()
-stage_one = StageOne()
-stage_two = StageTwo()
-stage_three = StageThree()
+        self.game_state_manager = GameStateManager('main_menu')
+        self.main_menu = MainMenu()
+        self.stage_selection = StageSelection()
+        self.stage_one = StageOne()
+        self.stage_two = StageTwo()
+        self.stage_three = StageThree()
 
-screens = {
-    'main_menu': main_menu,
-    'stage_selection': stage_selection,
-    'stage_one': stage_one,
-    'stage_two': stage_two,
-    'stage_three': stage_three
-}
+        self.screens = {
+            'main_menu': self.main_menu,
+            'stage_selection': self.stage_selection,
+            'stage_one': self.stage_one,
+            'stage_two': self.stage_two,
+            'stage_three': self.stage_three
+        }
 
-current_screen = screens[game_state_manager.get_state()]
-running = True
-development_mode = True
+        self.current_screen = self.screens[self.game_state_manager.get_state()]
+        self.running = True
+        self.development_mode = True
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-            if development_mode and hasattr(current_screen, 'path_points'):
-                print("Path points: ", current_screen.path_points)
-        elif current_screen == main_menu:
-            new_state = main_menu.handle_event(event)
-            if new_state:
-                game_state_manager.set_state(new_state)
-        elif current_screen == stage_selection:
-            new_state = stage_selection.handle_event(event)
-            if new_state:
-                game_state_manager.set_state(new_state)
-        elif isinstance(current_screen, (StageOne, StageTwo, StageThree)):
-            if development_mode and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
-                pos = pygame.mouse.get_pos()
-                current_screen.path_points.append(pos)
-                print(f"Added path point: {pos}")
+    def run(self):
+        while self.running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                    if self.development_mode and hasattr(self.current_screen, 'path_points'):
+                        print("Path points: ", self.current_screen.path_points)
+                elif self.current_screen == self.main_menu:
+                    new_state = self.main_menu.handle_event(event)
+                    if new_state:
+                        self.game_state_manager.set_state(new_state)
+                elif self.current_screen == self.stage_selection:
+                    new_state = self.stage_selection.handle_event(event)
+                    if new_state:
+                        self.game_state_manager.set_state(new_state)
+                elif isinstance(self.current_screen, (StageOne, StageTwo, StageThree)):
+                    if self.development_mode and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+                        pos = pygame.mouse.get_pos()
+                        self.current_screen.path_points.append(pos)
+                        print(f"Added path point: {pos}")
 
-    current_time = pygame.time.get_ticks()
-    screen.fill(pygame.Color("black"))
+            current_time = pygame.time.get_ticks()
+            self.screen.fill(pygame.Color("black"))
 
-    if game_state_manager.get_state() in screens:
-        current_screen = screens[game_state_manager.get_state()]
-        current_screen.draw()
+            if self.game_state_manager.get_state() in self.screens:
+                self.current_screen = self.screens[self.game_state_manager.get_state()]
+                self.current_screen.draw()
 
-    screen.blit(current_screen, (0, 0))
-    pygame.display.flip()
-    clock.tick(FPS)
+            self.screen.blit(self.current_screen, (0, 0))
+            pygame.display.flip()
+            self.clock.tick(FPS)
 
-pygame.quit()
-sys.exit()
+        pygame.quit()
+        sys.exit()
+
+
+if __name__ == '__main__':
+    game = Game()
+    game.run()
