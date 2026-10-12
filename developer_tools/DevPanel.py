@@ -8,11 +8,16 @@ class DevPanel(pygame.surface.Surface):
         super().__init__((self.panel_width, SCREEN_HEIGHT))
 
         self.panel_rect = pygame.Rect(SCREEN_WIDTH - self.panel_width, 0, self.panel_width, SCREEN_HEIGHT)
-        self.minimize_btn = Button((10, 10, 80, 25), "<< Minimize", font_size=FONT_SIZE_NORMAL, callback=self.on_minimize)
+        self.is_minimized = False
+        self.minimize_panel_btn = Button((10, 10, 80, 25), "<< Minimize", font_size=FONT_SIZE_NORMAL, callback=self.on_minimize)
+        self.show_panel_btn = Button((SCREEN_WIDTH - 80, 40, 80, 25), ">> Show", font_size=FONT_SIZE_NORMAL, callback=self.on_show)
 
     def handle_event(self, event):
         if event.type not in (pygame.MOUSEMOTION, pygame.MOUSEBUTTONDOWN):
             return False
+
+        if self.is_minimized:
+            return self.show_panel_btn.handle_event(event)
 
         local_event_data = {
             "pos": (
@@ -24,13 +29,20 @@ class DevPanel(pygame.surface.Surface):
             local_event_data["button"] = event.button
 
         local_event = pygame.event.Event(event.type, local_event_data)
-        return self.minimize_btn.handle_event(local_event)
+        return self.minimize_panel_btn.handle_event(local_event)
 
     def on_minimize(self):
-        print("DevPanel: Minimize button clicked")
         self.panel_rect.x = SCREEN_WIDTH
+        self.is_minimized = True
+
+    def on_show(self):
+        self.panel_rect.x = SCREEN_WIDTH - self.panel_width
+        self.is_minimized = False
 
     def draw(self, surface):
         self.fill(COLOR_BG)
-        self.minimize_btn.draw(self)
+        if self.is_minimized:
+            self.show_panel_btn.draw(surface)
+        else:
+            self.minimize_panel_btn.draw(self)
         surface.blit(self, self.panel_rect)
