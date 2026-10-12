@@ -19,6 +19,8 @@ class DevManager(pygame.surface.Surface):
             self.path_builder.set_stage(self.stage_screen)
 
     def handle_event(self, event):
+        if hasattr(event, 'pos') and not self.dev_panel.panel_rect.collidepoint(event.pos):
+            self.path_builder.handle_event(event)
         self.dev_panel.handle_event(event)
 
     def draw(self):
