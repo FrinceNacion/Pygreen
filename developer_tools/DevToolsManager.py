@@ -15,6 +15,9 @@ class DevManager(pygame.surface.Surface):
             print(f"Setting stage screen to: {type(self.stage_screens[stage_screen]).__name__}")
             self.stage_screen = self.stage_screens[stage_screen]
 
+    def handle_event(self, event):
+        self.dev_panel.handle_event(event)
+
     def draw(self):
         if self.stage_screen is None:
             return
