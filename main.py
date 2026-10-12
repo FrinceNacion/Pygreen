@@ -69,11 +69,13 @@ class Game:
                     if self.development_mode and new_state in self.stage_screens:
                         self.dev_manager.set_stage_screen(new_state)
                         new_state = 'dev_manager'
-                elif isinstance(self.current_screen, (StageOne, StageTwo, StageThree)):
-                    if self.development_mode and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
-                        pos = pygame.mouse.get_pos()
-                        self.current_screen.path_points.append(pos)
-                        print(f"Added path point: {pos}")
+                elif self.current_screen == self.dev_manager:
+                    self.dev_manager.handle_event(event)
+                #elif isinstance(self.current_screen, (StageOne, StageTwo, StageThree)):
+                #    if self.development_mode and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+                #        pos = pygame.mouse.get_pos()
+                #        self.current_screen.path_points.append(pos)
+                #        print(f"Added path point: {pos}")
 
                 if new_state:
                     self.game_state_manager.set_state(new_state)
