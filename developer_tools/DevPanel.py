@@ -17,6 +17,7 @@ class DevPanel(pygame.surface.Surface):
 
         # Pathbuilder buttons
         self.add_path_point_btn = Button((20, 50, 150, 25), "Add Path Point", font_size=FONT_SIZE_NORMAL, callback=self.path_builder.add_path_point)
+        self.save_path_points_btn = Button((20, 80, 150, 25), "Save Path Points", font_size=FONT_SIZE_NORMAL, callback=self.path_builder.save_path_points)
 
     def handle_event(self, event):
         if event.type not in (pygame.MOUSEMOTION, pygame.MOUSEBUTTONDOWN):
@@ -36,6 +37,7 @@ class DevPanel(pygame.surface.Surface):
 
         local_event = pygame.event.Event(event.type, local_event_data)
         self.add_path_point_btn.handle_event(local_event)
+        self.save_path_points_btn.handle_event(local_event)
         self.minimize_panel_btn.handle_event(local_event)
 
     def on_minimize(self):
@@ -53,4 +55,5 @@ class DevPanel(pygame.surface.Surface):
         else:
             self.minimize_panel_btn.draw(self)
         self.add_path_point_btn.draw(self)
+        self.save_path_points_btn.draw(self)
         surface.blit(self, self.panel_rect)
