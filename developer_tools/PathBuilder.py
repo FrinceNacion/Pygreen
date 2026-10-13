@@ -1,4 +1,5 @@
 import pygame
+import json
 
 class PathBuilder:
     def __init__(self, stage):
@@ -7,6 +8,10 @@ class PathBuilder:
         self.default_path_point = (100, 100)
         self.selected_point_index = None
         self.drag_offset = (0, 0)
+
+    def save_path_points(self):
+        with open(f'{self.stage}_path_points.json', 'w') as json_file:
+            json.dump(self.path_points, json_file)
 
     def set_stage(self, stage):
         self.stage = stage
