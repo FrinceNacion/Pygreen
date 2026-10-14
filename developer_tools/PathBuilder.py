@@ -19,9 +19,16 @@ class PathBuilder:
     def add_path_point(self, path_point=None):
         if path_point is None:
             path_point = self.default_path_point
-            self.default_path_point = (self.default_path_point[0] + 100, 100)
+            self.default_path_point = (self.default_path_point[0] + 50, 100)
         self.path_points.append(path_point)
-        print(f"Added path point: {path_point}")
+
+    def drag_path_point(self, event):
+        if self.selected_point_index is None:
+            return
+        self.path_points[self.selected_point_index] = (
+            event.pos[0] + self.drag_offset[0],
+            event.pos[1] + self.drag_offset[1],
+        )
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -32,10 +39,7 @@ class PathBuilder:
                     return True
 
         elif event.type == pygame.MOUSEMOTION and self.selected_point_index is not None:
-            self.path_points[self.selected_point_index] = (
-                event.pos[0] + self.drag_offset[0],
-                event.pos[1] + self.drag_offset[1],
-            )
+            self.drag_path_point(event)
             return True
 
         elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
@@ -50,7 +54,9 @@ class PathBuilder:
             point = self.path_points[i]
             if i > 0:
                 prev_point = self.path_points[i - 1]
-                pygame.draw.line(surface, 'white', prev_point, point , 2)
+                pygame.draw.line(surface, 'white', prev_point, point, 2)
+                middle_point = ((prev_point[0] + point[0]) / 2, (prev_point[1] + point[1]) / 2 - 5)
+
         for i in range(len(self.path_points)):
             point = self.path_points[i]
             path_point_color = 'cadetblue' if i != 0 else 'green'
