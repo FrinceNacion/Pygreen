@@ -7,6 +7,7 @@ class PathBuilder:
         self.path_points = []
         self.default_path_point = (100, 100)
         self.selected_point_index = None
+        self.is_dragging = False
         self.drag_offset = (0, 0)
 
     def save_path_points(self):
@@ -23,7 +24,7 @@ class PathBuilder:
         self.path_points.append(path_point)
 
     def drag_path_point(self, event):
-        if self.selected_point_index is None:
+        if not self.is_dragging:
             return
         self.path_points[self.selected_point_index] = (
             event.pos[0] + self.drag_offset[0],
@@ -35,15 +36,16 @@ class PathBuilder:
             for index, point in enumerate(self.path_points):
                 if pygame.Vector2(event.pos).distance_to(point) <= 10:
                     self.selected_point_index = index
+                    self.is_dragging = True
                     self.drag_offset = (point[0] - event.pos[0], point[1] - event.pos[1])
                     return True
 
-        elif event.type == pygame.MOUSEMOTION and self.selected_point_index is not None:
+        elif event.type == pygame.MOUSEMOTION and self.is_dragging:
             self.drag_path_point(event)
             return True
 
         elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-            self.selected_point_index = None
+            self.is_dragging = False
 
         return False
 
