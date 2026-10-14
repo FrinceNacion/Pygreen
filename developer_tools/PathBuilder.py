@@ -47,6 +47,14 @@ class PathBuilder:
         elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
             self.is_dragging = False
 
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_BACKSPACE or event.key == pygame.K_DELETE:
+                if self.selected_point_index is None:
+                    return False
+                del self.path_points[self.selected_point_index]
+                self.selected_point_index = None
+                return True
+
         return False
 
     def draw_path(self, surface=None):
