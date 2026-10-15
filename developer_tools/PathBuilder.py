@@ -23,6 +23,14 @@ class PathBuilder:
             self.default_path_point = (self.default_path_point[0] + 50, 100)
         self.path_points.append(path_point)
 
+    def remove_path_point(self):
+        if self.selected_point_index is not None:
+            del self.path_points[self.selected_point_index]
+            if len(self.path_points) == 0:
+                self.selected_point_index = None 
+                return
+            self.selected_point_index = self.selected_point_index - 1 if self.selected_point_index > 0 else None
+
     def drag_path_point(self, event):
         if not self.is_dragging:
             return
@@ -49,10 +57,7 @@ class PathBuilder:
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE or event.key == pygame.K_DELETE:
-                if self.selected_point_index is None:
-                    return False
-                del self.path_points[self.selected_point_index]
-                self.selected_point_index = None
+                self.remove_path_point()
                 return True
 
         return False
