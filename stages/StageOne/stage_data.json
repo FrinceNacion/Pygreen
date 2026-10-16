@@ -1,0 +1,38 @@
+{
+    "stage_id": "stage_one",
+    "stage_name": "Warants",
+    "difficulty": "EASY",
+    "enemies": [
+        {
+            "name": "Worker Ant",
+            "health": 50,
+            "speed": 2.0
+        },
+        {
+            "name": "Soldier Ant",
+            "health": 100,
+            "speed": 1.5
+        },
+        {
+            "name": "Scout Ant",
+            "health": 35,
+            "speed": 3.0
+        }
+    ],
+    "towers": [
+        {
+            "name": "Guard Tower",
+            "damage": 15,
+            "range": 120,
+            "cooldown": 800,
+            "position": [350, 260]
+        },
+        {
+            "name": "Archer Tower",
+            "damage": 25,
+            "range": 180,
+            "cooldown": 1200,
+            "position": [700, 240]
+        }
+    ]
+}
