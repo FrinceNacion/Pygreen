@@ -22,7 +22,7 @@
     "tower_slots": [
         {
             "id": "slot_1",
-            "position": [160, 80]
+            "position": [160, 110]
         },
         {
             "id": "slot_2",
@@ -30,7 +30,7 @@
         },
         {
             "id": "slot_3",
-            "position": [510, 50]
+            "position": [510, 85]
         },
         {
             "id": "slot_4",
