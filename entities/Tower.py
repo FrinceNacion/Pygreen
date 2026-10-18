@@ -1,13 +1,13 @@
 import pygame
 
 class Tower(pygame.sprite.Sprite):
-    def __init__(self, name, damage, range, cooldown, position):
+    def __init__(self, position):
         super().__init__()
 
-        self.name = name
-        self.damage = damage
-        self.range = range
-        self.cooldown = cooldown
+        self.name = 'none'
+        self.damage = 0
+        self.range = 0
+        self.cooldown = 0
 
         self.last_shot_time = 0
 
@@ -16,6 +16,12 @@ class Tower(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
         self.rect.center = position
+
+    def set_tower_properties(self, name, damage, range, cooldown):
+        self.name = name
+        self.damage = damage
+        self.range = range
+        self.cooldown = cooldown
 
     def is_enemy_in_range(self, enemy):
         distance = ((self.rect.x - enemy.rect.x) ** 2 + (self.rect.y - enemy.rect.y) ** 2) ** 0.5
