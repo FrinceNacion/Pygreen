@@ -14,7 +14,7 @@ class StageOne(pygame.Surface):
         self.path_one = self.path_points
 
         self.enemies = stage_data.get_enemies(self.path_points)
-        self.towers = stage_data.get_towers()
+        self.towers = pygame.sprite.Group(stage_data.get_tower_slots())
 
         asset_path = "./assets/StageOneMap.png"
         map_image = pygame.image.load(asset_path).convert()
@@ -32,3 +32,5 @@ class StageOne(pygame.Surface):
 
     def draw(self):
         self.blit(self.background, (0, 0))
+        self.towers.update(self.enemies)
+        self.towers.draw(self)
