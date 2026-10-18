@@ -37,6 +37,7 @@ class Tower(pygame.sprite.Sprite):
 
         self.image = self.frames[int(self.animation_index)]
         self.image = pygame.transform.scale(self.image, (120, 120))
+        self.rect = self.image.get_rect(center=self.rect.center)
 
         if self.name == 'none':
             return
