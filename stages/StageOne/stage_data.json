@@ -19,6 +19,28 @@
             "speed": 3.0
         }
     ],
+    "tower_slots": [
+        {
+            "id": "slot_1",
+            "position": [160, 80]
+        },
+        {
+            "id": "slot_2",
+            "position": [325, 260]
+        },
+        {
+            "id": "slot_3",
+            "position": [510, 50]
+        },
+        {
+            "id": "slot_4",
+            "position": [750, 265]
+        },
+        {
+            "id": "slot_5", 
+            "position": [575, 480]
+        }
+    ],
     "towers": [
         {
             "name": "Guard Tower",

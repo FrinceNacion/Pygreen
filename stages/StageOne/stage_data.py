@@ -72,9 +72,16 @@ def get_enemies(path=None):
         ))
     return enemies
 
+def get_tower_slots():
+    """Return tower slot positions configured for this stage."""
+    data = load_stage_data()
+    tower_slots = []
+    for slot in data.get("tower_slots", []):
+        tower_slots.append(Tower(slot["id"], slot["position"]))
+    return tower_slots
 
-def get_towers():
-    """Instantiate and return Tower objects configured for this stage."""
+
+"""def get_towers():
     data = load_stage_data()
     towers = []
     for item in data.get("towers", []):
@@ -85,7 +92,7 @@ def get_towers():
             cooldown=item["cooldown"],
             position=tuple(item["position"])
         ))
-    return towers
+    return towers"""
 
 
 def get_stage_data():
@@ -97,5 +104,6 @@ def get_stage_data():
         "enemies_data": data.get("enemies", []),
         "towers_data": data.get("towers", []),
         "enemies": get_enemies(points),
-        "towers": get_towers(),
+        "tower_slots": data.get("tower_slots", []),
+        #"towers": get_towers(),
     }

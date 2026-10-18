@@ -7,7 +7,7 @@ from stages.StageOne.stage_data import (
     load_stage_data,
     save_stage_data,
     get_enemies,
-    get_towers,
+    #get_towers,
     get_stage_data,
 )
 
@@ -20,6 +20,6 @@ __all__ = [
     "load_stage_data",
     "save_stage_data",
     "get_enemies",
-    "get_towers",
+    #"get_towers",
     "get_stage_data",
 ]
