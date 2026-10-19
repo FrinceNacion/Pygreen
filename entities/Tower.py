@@ -1,5 +1,22 @@
 import pygame
 
+class TowerOptions(pygame.surface.Surface):
+    def __init__(self, position):
+        super().__init__((400, 200))
+        self.is_open = False
+
+        self.tower_icons_assets = ["./assets/bow-frame.png"]
+        self.bow_frame_img = pygame.image.load(self.tower_icons_assets[0]).convert_alpha()
+        self.bow_frame_img = pygame.transform.scale(self.bow_frame_img, (50, 50))
+        self.bow_frame_rect = self.bow_frame_img.get_rect(midtop=position)
+
+    def set_position(self, position):
+        self.bow_frame_rect.midtop = position
+
+    def draw(self, screen):
+        if not self.is_open:
+            return
+        screen.blit(self.bow_frame_img, self.bow_frame_rect)
 class Tower(pygame.sprite.Sprite):
     def __init__(self, slot_id, position):
         super().__init__()
