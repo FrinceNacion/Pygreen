@@ -36,11 +36,22 @@ class Tower(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = position
 
+        self.options_surface = TowerOptions((self.rect.centerx, self.rect.bottom + 5))
+
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if self.rect.collidepoint(event.pos):
+                print(f"Tower slot {self.rect.center} clicked.")
+                self.options_surface.is_open = True
+
     def set_tower_properties(self, name, damage, range, cooldown):
         self.name = name
         self.damage = damage
         self.range = range
         self.cooldown = cooldown
+
+    def show_options(self, screen):
+        self.options_surface.draw(screen)
 
     def is_enemy_in_range(self, enemy):
         distance = ((self.rect.x - enemy.rect.x) ** 2 + (self.rect.y - enemy.rect.y) ** 2) ** 0.5
@@ -55,6 +66,7 @@ class Tower(pygame.sprite.Sprite):
         self.image = self.frames[int(self.animation_index)]
         self.image = pygame.transform.scale(self.image, (120, 120))
         self.rect = self.image.get_rect(center=self.rect.center)
+        self.options_surface.set_position((self.rect.centerx, self.rect.bottom - 40))
 
         if self.name == 'none':
             return
