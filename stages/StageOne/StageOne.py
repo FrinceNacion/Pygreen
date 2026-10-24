@@ -20,6 +20,10 @@ class StageOne(pygame.Surface):
         map_image = pygame.image.load(asset_path).convert()
         self.background = pygame.transform.scale(map_image, SCREEN_SIZE)
 
+    def handle_event(self, event):
+        for tower in self.towers:
+            tower.handle_event(event)
+
     def load_path_points(self):
         self.path_points = self.data_module.load_path_points()
         self.path_one = self.path_points
@@ -34,3 +38,6 @@ class StageOne(pygame.Surface):
         self.blit(self.background, (0, 0))
         self.towers.update(self.enemies)
         self.towers.draw(self)
+
+        for tower in self.towers:
+            tower.show_options(self)
