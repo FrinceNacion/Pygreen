@@ -17,6 +17,7 @@ class TowerOptions(pygame.surface.Surface):
         if not self.is_open:
             return
         screen.blit(self.bow_frame_img, self.bow_frame_rect)
+
 class Tower(pygame.sprite.Sprite):
     def __init__(self, slot_id, position):
         super().__init__()
@@ -51,7 +52,8 @@ class Tower(pygame.sprite.Sprite):
         self.cooldown = cooldown
 
     def show_options(self, screen):
-        self.options_surface.draw(screen)
+        if self.options_surface.is_open:
+            self.options_surface.draw(screen)
 
     def is_enemy_in_range(self, enemy):
         distance = ((self.rect.x - enemy.rect.x) ** 2 + (self.rect.y - enemy.rect.y) ** 2) ** 0.5
