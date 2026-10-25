@@ -1,0 +1,26 @@
+{
+    "stage_id": "stage_two",
+    "stage_name": "Waraid",
+    "difficulty": "MEDIUM",
+    "enemies": [
+        {
+            "name": "Guard Raider",
+            "health": 120,
+            "speed": 2.2
+        },
+        {
+            "name": "Heavy Ant",
+            "health": 250,
+            "speed": 1.0
+        }
+    ],
+    "towers": [
+        {
+            "name": "Cannon Tower",
+            "damage": 40,
+            "range": 140,
+            "cooldown": 1500,
+            "position": [400, 300]
+        }
+    ]
+}
