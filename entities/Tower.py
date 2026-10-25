@@ -19,6 +19,8 @@ class TowerOptions(pygame.surface.Surface):
         screen.blit(self.bow_frame_img, self.bow_frame_rect)
 
 class Tower(pygame.sprite.Sprite):
+    current_open_options_surface = None
+
     def __init__(self, slot_id, position):
         super().__init__()
         self.tower_slot_assets = ["./assets/tower_slot-1.png","./assets/tower_slot-2.png"]
@@ -44,6 +46,7 @@ class Tower(pygame.sprite.Sprite):
             if self.rect.collidepoint(event.pos):
                 print(f"Tower slot {self.rect.center} clicked.")
                 self.options_surface.is_open = True
+                Tower.current_open_options_surface = self.options_surface
 
     def set_tower_properties(self, name, damage, range, cooldown):
         self.name = name
@@ -52,7 +55,7 @@ class Tower(pygame.sprite.Sprite):
         self.cooldown = cooldown
 
     def show_options(self, screen):
-        if self.options_surface.is_open:
+        if self.options_surface.is_open and Tower.current_open_options_surface == self.options_surface:
             self.options_surface.draw(screen)
 
     def is_enemy_in_range(self, enemy):
