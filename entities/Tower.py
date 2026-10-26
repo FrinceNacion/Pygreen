@@ -45,6 +45,10 @@ class Tower(pygame.sprite.Sprite):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self.rect.collidepoint(event.pos):
                 print(f"Tower slot {self.rect.center} clicked.")
+
+                if Tower.current_open_options_surface:
+                    Tower.current_open_options_surface.is_open = False
+                    
                 self.options_surface.is_open = True
                 Tower.current_open_options_surface = self.options_surface
 
