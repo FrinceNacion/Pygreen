@@ -3,7 +3,7 @@ import sys
 from developer_tools.DevToolsManager import DevManager
 from screens.MainMenu import MainMenu
 from screens.StageSelection import StageSelection
-from stages.StageOne import StageOne
+from stages.StageOne.StageOne import StageOne
 from stages.StageTwo import StageTwo
 from stages.StageThree import StageThree
 from config.constants import SCREEN_SIZE, FPS

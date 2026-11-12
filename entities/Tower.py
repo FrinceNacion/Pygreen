@@ -47,9 +47,10 @@ class Tower(pygame.sprite.Sprite):
                 print(f"Tower slot {self.rect.center} clicked.")
 
                 if Tower.current_open_options_surface:
-                    Tower.current_open_options_surface.is_open = False
+                    #Tower.current_open_options_surface.is_open = not is_open
+                    self.options_surface.is_open = not self.options_surface.is_open 
+                    print(f"Options surface is now {'open' if Tower.current_open_options_surface.is_open else 'closed'}.")
                     
-                self.options_surface.is_open = True
                 Tower.current_open_options_surface = self.options_surface
 
     def set_tower_properties(self, name, damage, range, cooldown):
