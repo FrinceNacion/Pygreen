@@ -71,6 +71,8 @@ class Game:
                         new_state = 'dev_manager'
                 elif self.current_screen == self.dev_manager:
                     self.dev_manager.handle_event(event)
+                elif self.current_screen in self.stage_screens.values():
+                    self.current_screen.handle_event(event)
                 #elif isinstance(self.current_screen, (StageOne, StageTwo, StageThree)):
                 #    if self.development_mode and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 #        pos = pygame.mouse.get_pos()
