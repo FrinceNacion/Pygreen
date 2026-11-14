@@ -1,8 +1,9 @@
 import pygame
 from config.constants import SCREEN_SIZE
+from stages.stage import Stage
 
 
-class StageTwo(pygame.Surface):
+class StageTwo(Stage):
     def __init__(self):
         super().__init__(SCREEN_SIZE)
         # path builder mode
@@ -16,3 +17,4 @@ class StageTwo(pygame.Surface):
 
         for point in self.path_points:
             pygame.draw.circle(self, 'salmon', point, 5)
+        self.draw_menu_button()

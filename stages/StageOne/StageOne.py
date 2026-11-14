@@ -2,9 +2,10 @@ from pathlib import Path
 import pygame
 from config.constants import SCREEN_SIZE
 from stages.StageOne import stage_data
+from stages.stage import Stage
 
 
-class StageOne(pygame.Surface):
+class StageOne(Stage):
     def __init__(self):
         super().__init__(SCREEN_SIZE)
         self.stage_dir = Path(__file__).resolve().parent
@@ -21,8 +22,13 @@ class StageOne(pygame.Surface):
         self.background = pygame.transform.scale(map_image, SCREEN_SIZE)
 
     def handle_event(self, event):
+        new_state = super().handle_event(event)
+        if new_state:
+            return new_state
+
         for tower in self.towers:
             tower.handle_event(event)
+        return None
 
     def load_path_points(self):
         self.path_points = self.data_module.load_path_points()
@@ -41,3 +47,4 @@ class StageOne(pygame.Surface):
 
         for tower in self.towers:
             tower.show_options(self)
+        self.draw_menu_button()
