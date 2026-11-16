@@ -56,6 +56,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self, *args, **kwargs):
         kwargs.get('screen').blit(self.health_bar_surface, (int(self.x), int(self.y - 15)))
+        kwargs.get('screen').blit(self.image, (int(self.x), int(self.y)))
         if self.handle_end_of_path():
             self.kill()
             return 
