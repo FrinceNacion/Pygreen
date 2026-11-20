@@ -44,7 +44,11 @@ class StageOne(Stage):
         self.blit(self.background, (0, 0))
         self.towers.update(self.enemies)
         self.towers.draw(self)
+        self.draw_stage_buttons()
 
         for tower in self.towers:
             tower.show_options(self)
-        self.draw_menu_button()
+
+        if self.is_started:
+            for enemy in self.enemies:
+                enemy.update(screen=self)
