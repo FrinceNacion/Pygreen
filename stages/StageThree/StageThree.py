@@ -17,4 +17,5 @@ class StageThree(Stage):
 
         for point in self.path_points:
             pygame.draw.circle(self, 'salmon', point, 5)
-        self.draw_menu_button()
+        self.draw_stage_buttons()
+
