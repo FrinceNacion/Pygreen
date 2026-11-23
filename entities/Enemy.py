@@ -55,8 +55,6 @@ class Enemy(pygame.sprite.Sprite):
         return False
 
     def update(self, *args, **kwargs):
-        kwargs.get('screen').blit(self.health_bar_surface, (int(self.x), int(self.y - 15)))
-        kwargs.get('screen').blit(self.image, (int(self.x), int(self.y)))
         if self.handle_end_of_path():
             self.kill()
             return 
@@ -81,3 +79,5 @@ class Enemy(pygame.sprite.Sprite):
             self.y += distance_y / distance * self.speed
 
         self.rect.topleft = (int(self.x), int(self.y))
+        kwargs.get('screen').blit(self.health_bar_surface, (int(self.x), int(self.y - 15)))
+        kwargs.get('screen').blit(self.image, (int(self.x), int(self.y)))
